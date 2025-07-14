@@ -16,30 +16,37 @@ document.addEventListener('DOMContentLoaded', () => {
   
       const burger1 = await loadGLTF('./models/cheesburger/scene.gltf');
       burger1.scene.scale.set(0.5, 0.5, 0.5);
+      burger1.scene.rotation.set(90,0,0);
       burger1.scene.position.set(0, -0.4, 0);
   
       const burger2 = await loadGLTF('./models/jumping_hamburger/scene.gltf');
-      burger2.scene.scale.set(1,1,1);
+      burger2.scene.scale.set(0.5, 0.5, 0.5);
+      burger2.scene.rotation.set(90,0,0);
       burger2.scene.position.set(0, -0.4, 0);
 
       const burger3 = await loadGLTF('./models/vegetable_burgur_fbx/scene.gltf');
-      burger3.scene.scale.set(1, 1, 1);
+      burger3.scene.scale.set(0.5, 0.5, 0.5);
+      burger3.scene.rotation.set(90,0,0);
       burger3.scene.position.set(0, -0.4, 0);
       
       const burger4 = await loadGLTF('./models/back_yard_burgers_-_classic_burger/scene.gltf');
       burger4.scene.scale.set(0.1, 0.1, 0.1);
+      burger4.scene.rotation.set(90,0,0);
       burger4.scene.position.set(0, -0.4, 0);
       
       const burger5 = await loadGLTF('./models/burger/scene.gltf');
-      burger5.scene.scale.set(1, 1, 1);
+      burger5.scene.scale.set(0.5, 0.5, 0.5);
+      burger5.scene.rotation.set(90,0,0);
       burger5.scene.position.set(0, -0.4, 0);
 
       const burger6 = await loadGLTF('./models/burger-2/scene.gltf');
-      burger6.scene.scale.set(1, 1, 1);
+      burger6.scene.scale.set(0.5, 0.5, 0.5);
+      burger6.scene.rotation.set(90,0,0);
       burger6.scene.position.set(0, -0.4, 0);
       
       const burger7 = await loadGLTF('./models/burger-3/scene.gltf');
       burger7.scene.scale.set(10, 10, 10);
+      burger7.scene.rotation.set(90,0,0);
       burger7.scene.position.set(0, -0.4, 0);
 
 
