@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       burger3.scene.rotation.set(90,0,0);
       burger3.scene.position.set(0, -0.4, 0);
       
-      const burger4 = await loadGLTF('./models/back_yard_burgers_-_classic_burger/scene.gltf');
+      const burger4 = await loadGLTF('./models/burger-4/scene.gltf');
       burger4.scene.scale.set(0.1, 0.1, 0.1);
       burger4.scene.rotation.set(90,0,0);
       burger4.scene.position.set(0, -0.4, 0);
