@@ -1,14 +1,13 @@
-import {loadGLTF} from "../libs/loader.js"
+import {loadGLTF} from "./libs/loader.js"
 const THREE = window.MINDAR.IMAGE.THREE;
 
 document.addEventListener('DOMContentLoaded', () => {
     const start = async() => {
       const mindarThree = new window.MINDAR.IMAGE.MindARThree({
-        // container: document.querySelector("#my-ar-container"),
-         container: document.body,
+        container: document.body,
         imageTargetSrc: './targetsBurger.mind',
         uiScanning: "no",
-      uiLoading: "no",
+        uiLoading: "no",
       });
       const {renderer, scene, camera} = mindarThree;
   
