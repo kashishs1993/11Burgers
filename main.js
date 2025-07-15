@@ -1,86 +1,95 @@
-import {loadGLTF} from "./libs/loader.js"
+import {loadAudio, loadGLTF, loadVideo} from "./libs/loader.js";
+import{createChromaMaterial} from "./libs/chroma-video.js"
 const THREE = window.MINDAR.IMAGE.THREE;
 
 document.addEventListener('DOMContentLoaded', () => {
-    const start = async() => {
-      const mindarThree = new window.MINDAR.IMAGE.MindARThree({
-        container: document.body,
-        imageTargetSrc: './targetsBurger.mind',
-        uiScanning: "no",
-        uiLoading: "no",
-      });
-      const {renderer, scene, camera} = mindarThree;
-  
-      const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
-      scene.add(light);
-  
-      const burger1 = await loadGLTF('./models/cheesburger/scene.gltf');
-      burger1.scene.scale.set(0.5, 0.5, 0.5);
-      burger1.scene.rotation.set(90,0,0);
-      burger1.scene.position.set(0, -0.4, 0);
-  
-      const burger2 = await loadGLTF('./models/jumping_hamburger/scene.gltf');
-      burger2.scene.scale.set(0.5, 0.5, 0.5);
-      burger2.scene.rotation.set(90,0,0);
-      burger2.scene.position.set(0, -0.4, 0);
+  const start = async() => {
+    const mindarThree = new window.MINDAR.IMAGE.MindARThree({
+      container: document.body,
+      imageTargetSrc: './hiro.mind',
+      uiScanning: "no",
+      uiLoading: "no",
+    });
+    const {renderer, scene, camera} = mindarThree;
+    
+    //video
+    const video = await loadVideo("./videos/video1.mp4");
+    const texture = new THREE.VideoTexture(video);
 
-      const burger3 = await loadGLTF('./models/vegetable_burgur_fbx/scene.gltf');
-      burger3.scene.scale.set(0.5, 0.5, 0.5);
-      burger3.scene.rotation.set(90,0,0);
-      burger3.scene.position.set(0, -0.4, 0);
-      
-      const burger4 = await loadGLTF('./models/burger/scene.gltf');
-      burger4.scene.scale.set(0.1, 0.1, 0.1);
-      burger4.scene.rotation.set(90,0,0);
-      burger4.scene.position.set(0, -0.4, 0);
-      
-      const burger5 = await loadGLTF('./models/burger/scene.gltf');
-      burger5.scene.scale.set(0.5, 0.5, 0.5);
-      burger5.scene.rotation.set(90,0,0);
-      burger5.scene.position.set(0, -0.4, 0);
+    const geometry = new THREE.PlaneGeometry(1, 1);
+    // const material = createChromaMaterial(texture, 0x000000); //chroma
+    
+    // const geometry = new THREE.PlaneGeometry(2, 1080/(1920/2));
+    const material = new THREE.MeshBasicMaterial({map: texture});
+    const plane = new THREE.Mesh(geometry, material);
 
-      const burger6 = await loadGLTF('./models/burger-2/scene.gltf');
-      burger6.scene.scale.set(0.5, 0.5, 0.5);
-      burger6.scene.rotation.set(90,0,0);
-      burger6.scene.position.set(0, -0.4, 0);
-      
-      const burger7 = await loadGLTF('./models/burger-3/scene.gltf');
-      burger7.scene.scale.set(10, 10, 10);
-      burger7.scene.rotation.set(90,0,0);
-      burger7.scene.position.set(0, -0.4, 0);
+    const anchorVid = mindarThree.addAnchor(0);
+    anchorVid.group.add(plane);
 
-
-
-// Anchors
-  
-      const burger1Anchor = mindarThree.addAnchor(0);
-      burger1Anchor.group.add(burger1.scene);
-  
-      const burger2Anchor = mindarThree.addAnchor(1);
-      burger2Anchor.group.add(burger2.scene);
-      
-      const burger3Anchor = mindarThree.addAnchor(2);
-      burger3Anchor.group.add(burger3.scene);
-  
-      const burger4Anchor = mindarThree.addAnchor(3);
-      burger4Anchor.group.add(burger4.scene);
-
-      const burger5Anchor = mindarThree.addAnchor(4);
-      burger5Anchor.group.add(burger5.scene);
-
-      const burger6Anchor = mindarThree.addAnchor(5);
-      burger6Anchor.group.add(burger6.scene);
-
-      const burger7Anchor = mindarThree.addAnchor(6);
-      burger7Anchor.group.add(burger7.scene);
-
-
-  
-      await mindarThree.start();
-      renderer.setAnimationLoop(() => {
-        renderer.render(scene, camera);
-      });
+    anchorVid.onTargetFound = () => {
+      video.loop = true;
+      video.play();
     }
-    start();
-  });
+    anchorVid.onTargetLost = () => {
+      video.pause();
+    }
+    video.addEventListener( 'play', (loop) => {
+      // video.currentTime = 6;
+    });
+
+    const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
+    scene.add(light);
+
+    //model
+    const gltf = await loadGLTF('./models/spongebob/scene.gltf');
+    gltf.scene.scale.set(0.2, 0.2, 0.2);
+    gltf.scene.position.set(0, 0, 0);
+    gltf.scene.rotation.set(45, 0, 0);
+
+    // const gltf2 = await loadGLTF('./models/dance-1/scene.gltf');
+    // gltf2.scene.scale.set(0.2, 0.2, 0.2);
+    // gltf2.scene.position.set(0, -0.5, 0);
+    // gltf2.scene.rotation.set(45, 0, 0);
+
+    const anchor = mindarThree.addAnchor(0);
+    anchor.group.add(gltf.scene);
+    // anchor.group.add(gltf2.scene);
+
+    const mixer = new THREE.AnimationMixer(gltf.scene);
+    const action = mixer.clipAction(gltf.animations[0]);
+    action.play();
   
+    // const mixer2 = new THREE.AnimationMixer(gltf2.scene);
+    // const action2 = mixer2.clipAction(gltf2.animations[0]);
+    // action2.play();
+
+    const clock = new THREE.Clock();
+
+//audio
+const audioClip = await loadAudio("./Excuses - AP Dhillon Gurinder Gill (DJJOhAL.Com).mp3");
+const listener = new THREE.AudioListener();
+    camera.add(listener);
+
+    const audio = new THREE.PositionalAudio(listener);
+    anchor.group.add(audio);
+
+    audio.setBuffer(audioClip);
+    audio.setRefDistance(1000);
+    audio.setLoop(true);
+
+    anchor.onTargetFound = () => {
+      audio.play();
+    }
+    anchor.onTargetLost = () => {
+      audio.pause();
+    }
+
+    await mindarThree.start();
+    renderer.setAnimationLoop(() => {
+      const delta = clock.getDelta();
+      mixer.update(delta);
+      renderer.render(scene, camera);
+    });
+  }
+  start();
+});
