@@ -14,38 +14,38 @@ document.addEventListener('DOMContentLoaded', () => {
       const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
       scene.add(light);
   
-      const burger1 = await loadGLTF('./models/cheesburger/scene.gltf');
+      const burger1 = await loadGLTF('./cube models/blue/blue.gltf');
       burger1.scene.scale.set(0.5, 0.5, 0.5);
       burger1.scene.rotation.set(90,0,0);
       burger1.scene.position.set(0, -0.4, 0);
   
-      const burger2 = await loadGLTF('./models/jumping_hamburger/scene.gltf');
+      const burger2 = await loadGLTF('./cube models/cyan/cyan.gltf');
       burger2.scene.scale.set(0.5, 0.5, 0.5);
       burger2.scene.rotation.set(90,0,0);
       burger2.scene.position.set(0, -0.4, 0);
 
-      const burger3 = await loadGLTF('./models/vegetable_burgur_fbx/scene.gltf');
+      const burger3 = await loadGLTF('./cube models/green/green.gltf');
       burger3.scene.scale.set(0.5, 0.5, 0.5);
       burger3.scene.rotation.set(90,0,0);
       burger3.scene.position.set(0, -0.4, 0);
       
-      const burger4 = await loadGLTF('./models/burger/scene.gltf');
+      const burger4 = await loadGLTF('./cube models/purple/purple.gltf');
       burger4.scene.scale.set(0.1, 0.1, 0.1);
       burger4.scene.rotation.set(90,0,0);
       burger4.scene.position.set(0, -0.4, 0);
       
-      const burger5 = await loadGLTF('./models/burger/scene.gltf');
+      const burger5 = await loadGLTF('./cube models/red/red.gltf');
       burger5.scene.scale.set(0.5, 0.5, 0.5);
       burger5.scene.rotation.set(90,0,0);
       burger5.scene.position.set(0, -0.4, 0);
 
-      const burger6 = await loadGLTF('./models/burger-2/scene.gltf');
+      const burger6 = await loadGLTF('./cube models/white/white.gltf');
       burger6.scene.scale.set(0.5, 0.5, 0.5);
       burger6.scene.rotation.set(90,0,0);
       burger6.scene.position.set(0, -0.4, 0);
       
-      const burger7 = await loadGLTF('./models/burger-3/scene.gltf');
-      burger7.scene.scale.set(10, 10, 10);
+      const burger7 = await loadGLTF('./cube models/yellow/yellow.gltf');
+      burger7.scene.scale.set(0.5, 0.5, 0.5);
       burger7.scene.rotation.set(90,0,0);
       burger7.scene.position.set(0, -0.4, 0);
 
